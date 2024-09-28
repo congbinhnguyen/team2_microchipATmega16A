@@ -1,3 +1,8 @@
+#ATmega16A files're not important
+*.xml
+Debug/
+.vs
+
 # Prerequisites
 *.d
 
