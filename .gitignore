@@ -2,3 +2,5 @@
 *.xml
 Debug/
 .vs
+Project Backups/
+.workspace
