@@ -13,9 +13,51 @@
 
 int main(void)
 {
-    /* Replace with your application code */
-    while (1) 
+	DDRB = 0b00000111;
+	
+// 	temp
+// 		uint8_t counter;
+// 		for(counter = 0; counter <=7; counter ++)
+// 		{
+// 			PORTB=0b00000101;
+// 			_delay_ms(0.1);
+// 			PORTB=0b00000100;
+// 			_delay_ms(0.1);
+// 			PORTB=0b00000101;
+// 			_delay_ms(0.1);
+// 			PORTB=0b00000111;
+// 			_delay_ms(0.1);
+// 			
+// 		}
+// 		
+// 		
+// 		
+// 		//	export data
+// 		PORTB = 0b00000011;
+// 		_delay_ms(0.1);
+// 		PORTB = 0b00000111;
+// 		_delay_ms(0.1);
+// 			
+// 		
+// 		
+// 		
+// 		
+// 		
+// 		
+// 		
+// 		
+// 		
+
+
+
+	while (1) 
     {
+		/*devideNumber(8, &numberTemp, &orderNumber);*/
+ 		//	export data
+		PORTB = 0b00000011;
+		_delay_ms(0.1);
+		PORTB = 0b00000111;
+		_delay_ms(0.1);
     }
 	
 	return 0;

@@ -1,6 +1,7 @@
 #ATmega16A files're not important
 *.xml
 Debug/
+document/
 .vs
 Project Backups/
 BProject.pdsprj.DESKTOPCB.binhc.workspace
