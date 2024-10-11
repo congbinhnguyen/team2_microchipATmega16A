@@ -14,50 +14,15 @@
 int main(void)
 {
 	DDRB = 0b00000111;
+
+	uint32_t data = 12345;
+	uint8_t number=0;
+	uint8_t orderLED=0;
 	
-// 	temp
-// 		uint8_t counter;
-// 		for(counter = 0; counter <=7; counter ++)
-// 		{
-// 			PORTB=0b00000101;
-// 			_delay_ms(0.1);
-// 			PORTB=0b00000100;
-// 			_delay_ms(0.1);
-// 			PORTB=0b00000101;
-// 			_delay_ms(0.1);
-// 			PORTB=0b00000111;
-// 			_delay_ms(0.1);
-// 			
-// 		}
-// 		
-// 		
-// 		
-// 		//	export data
-// 		PORTB = 0b00000011;
-// 		_delay_ms(0.1);
-// 		PORTB = 0b00000111;
-// 		_delay_ms(0.1);
-// 			
-// 		
-// 		
-// 		
-// 		
-// 		
-// 		
-// 		
-// 		
-// 		
-
-
-
+	
 	while (1) 
     {
-		/*devideNumber(8, &numberTemp, &orderNumber);*/
- 		//	export data
-		PORTB = 0b00000011;
-		_delay_ms(0.1);
-		PORTB = 0b00000111;
-		_delay_ms(0.1);
+		processNumber (data, number, orderLED)  ;
     }
 	
 	return 0;
