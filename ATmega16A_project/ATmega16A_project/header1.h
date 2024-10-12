@@ -10,7 +10,7 @@
 #define HEADER1_H_
 
 #define F_CPU		8000000UL  // 8 MHz clock frequency
-#define TIMELED		0.1
+#define TIMELED		0.025
 #include <avr/io.h>
 #include <stdint.h>
 #include <util/delay.h>
@@ -47,6 +47,6 @@ void showNumber(uint8_t number, uint8_t orderLED, uint8_t dot);
 
 
 void convertNumber(uint8_t* number, uint8_t* orderLED);
-void processNumber (uint32_t data, uint8_t number, uint8_t orderLED) ; 
+void processNumber (uint32_t data) ;
 
 #endif /* HEADER1_H_ */

@@ -15,14 +15,12 @@ int main(void)
 {
 	DDRB = 0b00000111;
 
-	uint32_t data = 12345;
-	uint8_t number=0;
-	uint8_t orderLED=0;
+	uint32_t data = 12345678;
 	
 	
 	while (1) 
     {
-		processNumber (data, number, orderLED)  ;
+		processNumber (data)  ;
     }
 	
 	return 0;
