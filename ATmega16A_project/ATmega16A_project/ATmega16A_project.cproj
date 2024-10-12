@@ -133,7 +133,7 @@
     </ToolchainSettings>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="function\convertNumber.c">
+    <Compile Include="function\number2bin.c">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="function\showNumber.c">
@@ -142,7 +142,7 @@
     <Compile Include="function\displayERORR.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="function\processNumberr.c">
+    <Compile Include="function\processNumber.c">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="header1.h">

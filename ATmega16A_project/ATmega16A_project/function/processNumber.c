@@ -1,5 +1,5 @@
 /*
- * processNumberr.c
+ * processNumber.c
  *
  * Created: 10/11/2024 9:24:35 AM
  *  Author: binhc
@@ -21,7 +21,7 @@ void processNumber (uint32_t data)
 	{
 		number = data;
 		orderLED = 1;
-		convertNumber(&number, &orderLED);
+		number2bin(&number, &orderLED);
 		showNumber(number, orderLED, 0);
 	}
 	else if(data >=10 && data <=99)
@@ -31,7 +31,7 @@ void processNumber (uint32_t data)
 			number = (data / devisor) % 10;
 			devisor *=10;
 			orderLED = counter;
-			convertNumber(&number, &orderLED);
+			number2bin(&number, &orderLED);
 			showNumber(number, orderLED, 0);
 		}
 	}
@@ -42,7 +42,7 @@ void processNumber (uint32_t data)
 			number = (data / devisor) % 10;
 			devisor *=10;
 			orderLED = counter;
-			convertNumber(&number, &orderLED);
+			number2bin(&number, &orderLED);
 			showNumber(number, orderLED, 0);
 		}	
 		
@@ -58,7 +58,7 @@ void processNumber (uint32_t data)
 			{
 				dot = 1;
 			}
-			convertNumber(&number, &orderLED);
+			number2bin(&number, &orderLED);
 			showNumber(number, orderLED, dot);
 		}
 	}
@@ -73,7 +73,7 @@ void processNumber (uint32_t data)
 			{
 				dot = 1;
 			}
-			convertNumber(&number, &orderLED);
+			number2bin(&number, &orderLED);
 			showNumber(number, orderLED, dot);
 			dot = 0;
 		}
@@ -89,7 +89,7 @@ void processNumber (uint32_t data)
 			{
 				dot = 1;
 			}
-			convertNumber(&number, &orderLED);
+			number2bin(&number, &orderLED);
 			showNumber(number, orderLED, dot);
 			dot = 0;
 		}
@@ -105,7 +105,7 @@ void processNumber (uint32_t data)
 			{
 				dot = 1;
 			}
-			convertNumber(&number, &orderLED);
+			number2bin(&number, &orderLED);
 			showNumber(number, orderLED, dot);
 			dot = 0;
 		}
@@ -121,14 +121,14 @@ void processNumber (uint32_t data)
 			{
 				dot = 1;
 			}
-			convertNumber(&number, &orderLED);
+			number2bin(&number, &orderLED);
 			showNumber(number, orderLED, dot);
 			dot = 0;
 		}
 	}
 	else
 	{
-		//error
+		displayError();
 	}
 	
 	// reset status DOT

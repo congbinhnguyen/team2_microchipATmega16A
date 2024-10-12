@@ -9,14 +9,15 @@
 #ifndef HEADER1_H_
 #define HEADER1_H_
 
-#define F_CPU		8000000UL  // 8 MHz clock frequency
-#define TIMELED		0.025
+
+#define F_CPU			8000000UL  // 8 MHz clock frequency
+#define TIMELIMIT		0.025
 #include <avr/io.h>
 #include <stdint.h>
 #include <util/delay.h>
 #include <math.h>
 
-//Number
+//Number define
 #define		_ZERO_		0b1111110
 #define		_ONE_		0b0110000
 #define		_TWO_		0b1101101
@@ -28,7 +29,12 @@
 #define		_EIGHT_		0b1111111
 #define		_NINE_		0b1111011
 
-//orderLED
+// ERROR notion define
+#define		_E_			0b1001111
+#define		_R_			0b1100110
+#define		_O_			0b1111110
+
+//orderLED define
 #define		LED8		0b00000001
 #define		LED7		0b00000010
 #define		LED6		0b00000100
@@ -40,13 +46,11 @@
 
 
 
-//declar
+//declare functions
 
-void showDot(uint8_t dot);
-void showNumber(uint8_t number, uint8_t orderLED, uint8_t dot);
-
-
-void convertNumber(uint8_t* number, uint8_t* orderLED);
+void number2bin(uint8_t * number, uint8_t * orderLED);
 void processNumber (uint32_t data) ;
+void showNumber(uint8_t number, uint8_t orderLED, uint8_t dot);
+void displayError();
 
 #endif /* HEADER1_H_ */
