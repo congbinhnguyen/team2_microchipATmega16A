@@ -11,18 +11,16 @@
 #include <util/delay.h>
 
 // declare variable data
-uint32_t data;
+uint32_t data = 3000000000; // inout data
+
 
 int main(void)
 {
 	// setting DDRB register
 	DDRB = 0b00000111;
-
-	while (1)
-	{
-		// input data
-		data = 165;
-
+	
+	while (1) 
+    {
 		// display data
 		processNumber(data);
 	}

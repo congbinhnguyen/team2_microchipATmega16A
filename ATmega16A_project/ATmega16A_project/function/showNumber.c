@@ -12,29 +12,29 @@ void showDot(uint8_t dot);
 void showNumber(uint8_t number, uint8_t orderLED, uint8_t dot)
 {
 	// bit dot (first)
-	showDot(dot);
-
-	// counter loop (seconed)
-	uint8_t c;
-	for (c = 0; c < 7; c++)
+	showDot(dot);	
+	
+	//counter loop (second)
+	uint8_t c; 
+	for (c=0; c<7;c++)
 	{
 		if (~number & 0b1)
 		{
-			PORTB = 0b00000110;
-			_delay_ms(TIMELIMIT);
-			PORTB = 0b00000111;
-			_delay_ms(TIMELIMIT);
+			//SH_CP LOW
+			PORTB=0b00000110;
+			//SH_CP HIGH
+			PORTB=0b00000111;
 		}
 		else
 		{
-			PORTB = 0b00000101;
-			_delay_ms(TIMELIMIT);
-			PORTB = 0b000100;
-			_delay_ms(TIMELIMIT);
-			PORTB = 0b00000101;
-			_delay_ms(TIMELIMIT);
-			PORTB = 0b00000111;
-			_delay_ms(TIMELIMIT);
+			//DIO LOW
+			PORTB=0b00000101;
+			//SH_CP LOW
+			PORTB=0b000100;
+			//SH_CP HIGH
+			PORTB=0b00000101;
+			//DIO HIGH
+			PORTB=0b00000111;
 		}
 		number = number >> 1;
 	}
@@ -44,50 +44,48 @@ void showNumber(uint8_t number, uint8_t orderLED, uint8_t dot)
 	{
 		if (1 == (orderLED & 0b1))
 		{
-			PORTB = 0b00000110;
-			_delay_ms(TIMELIMIT);
-			PORTB = 0b00000111;
-			_delay_ms(TIMELIMIT);
+			//SH_CP LOW
+			PORTB=0b00000110;
+			//SH_CP HIGH
+			PORTB=0b00000111;
 		}
 		else
 		{
-			PORTB = 0b00000101;
-			_delay_ms(TIMELIMIT);
-			PORTB = 0b000100;
-			_delay_ms(TIMELIMIT);
-			PORTB = 0b00000101;
-			_delay_ms(TIMELIMIT);
-			PORTB = 0b00000111;
-			_delay_ms(TIMELIMIT);
+			//DIO LOW
+			PORTB=0b00000101;
+			//SH_CP LOW
+			PORTB=0b000100;
+			//SH_CP HIGH
+			PORTB=0b00000101;
+			//DIO HIGH
+			PORTB=0b00000111;
 		}
 		orderLED = orderLED >> 1;
 	}
-
-	//	export data
+	
+	//	export data - ST_CP
 	PORTB = 0b00000011;
-	_delay_ms(TIMELIMIT);
 	PORTB = 0b00000111;
-	_delay_ms(TIMELIMIT);
 }
 
 void showDot(uint8_t dot)
 {
 	if (dot == 1)
 	{
-		PORTB = 0b00000101;
-		_delay_ms(TIMELIMIT);
-		PORTB = 0b000100;
-		_delay_ms(TIMELIMIT);
-		PORTB = 0b00000101;
-		_delay_ms(TIMELIMIT);
-		PORTB = 0b00000111;
-		_delay_ms(TIMELIMIT);
+		//DIO LOW
+		PORTB=0b00000101;
+		//SH_CP LOW
+		PORTB=0b000100;
+		//SH_CP HIGH
+		PORTB=0b00000101;
+		//DIO HIGH
+		PORTB=0b00000111;
 	}
 	else
 	{
-		PORTB = 0b00000110;
-		_delay_ms(TIMELIMIT);
-		PORTB = 0b00000111;
-		_delay_ms(TIMELIMIT);
+		//SH_CP LOW
+		PORTB=0b00000110;
+		//SH_CP HIGH
+		PORTB=0b00000111;
 	}
 }
