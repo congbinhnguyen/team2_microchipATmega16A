@@ -10,13 +10,18 @@
 #include <stdint.h>
 #include <util/delay.h>
 
-// declare variable data
-uint32_t data = 3000000000; // inout data
+#define CLOCK PB0 // SH-CP | SCLK (Shift Clock)
+#define DATA PB1  // DS | DIO
+#define LATCH PB2 // ST-CP (Storage Clock) | RCLK (Register Clock)
+
+void setup(void);
 
 int main(void)
 {
-	// setting DDRB register
-	DDRB = 0b00000111;
+	setup();
+
+	// declare variable data
+	uint32_t data = 11; // inout data
 
 	while (1)
 	{
@@ -25,4 +30,11 @@ int main(void)
 	}
 
 	return 0;
+}
+
+void setup(void)
+{
+	DDRB |= (1 << CLOCK);
+	DDRB |= (1 << DATA);
+	DDRB |= (1 << LATCH);
 }
