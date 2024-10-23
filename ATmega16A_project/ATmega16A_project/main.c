@@ -21,7 +21,7 @@ int main(void)
 	setup();
 
 	// declare variable data
-	uint32_t data = 11; // inout data
+	uint32_t data = 34567; // inout data
 
 	while (1)
 	{
