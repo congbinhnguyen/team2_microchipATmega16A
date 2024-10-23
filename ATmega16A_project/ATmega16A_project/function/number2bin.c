@@ -7,10 +7,10 @@
 
 #include "..\header1.h"
 
-void number2bin(uint8_t * number, uint8_t * orderLED)
+void number2bin(uint8_t *number, uint8_t *orderLED)
 {
 	// converting number
-	switch(*number)
+	switch (*number)
 	{
 		case 0:
 			*number = _ZERO_;
@@ -55,7 +55,7 @@ void number2bin(uint8_t * number, uint8_t * orderLED)
 	
 
 	// converting orderLED
-	switch ( *orderLED)
+	switch (*orderLED)
 	{
 		case 1:
 			*orderLED = LED1;

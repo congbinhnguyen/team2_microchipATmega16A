@@ -5,10 +5,8 @@
  *  Author: binhc
  */ 
 
-
 #ifndef HEADER1_H_
 #define HEADER1_H_
-
 
 #define F_CPU			8000000UL  // 8 MHz clock frequency
 #define TIMELIMIT		0.025
@@ -43,8 +41,6 @@
 #define		LED3		0b00100000
 #define		LED2		0b01000000
 #define		LED1		0b10000000
-
-
 
 //declare functions
 

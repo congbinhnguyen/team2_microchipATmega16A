@@ -3,7 +3,7 @@
  *
  * Created: 9/28/2024 11:42:09 PM
  * Author : binhc
- */ 
+ */
 
 #include "header1.h"
 #include <avr/io.h>
@@ -11,22 +11,21 @@
 #include <util/delay.h>
 
 // declare variable data
-	uint32_t data;
+uint32_t data;
 
 int main(void)
 {
 	// setting DDRB register
 	DDRB = 0b00000111;
-	
-	while (1) 
-    {
+
+	while (1)
+	{
 		// input data
 		data = 165;
-		
+
 		// display data
-		processNumber (data);
-    }
-	
+		processNumber(data);
+	}
+
 	return 0;
 }
-
