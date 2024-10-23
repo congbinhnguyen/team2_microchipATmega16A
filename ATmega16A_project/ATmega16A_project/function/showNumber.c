@@ -26,7 +26,7 @@ void showNumber(uint8_t number, uint8_t orderLED, uint8_t dot)
 	// Counter loop (second)
 	for (uint8_t c = 0; c < NUM_SEGMENT; c++)
 	{
-		// If the rightmost bit is 1
+		// If the rightmost bit is 0
 		(~number & 0b1) ? set_zero() : set_one();
 		number = number >> 1;
 	}
