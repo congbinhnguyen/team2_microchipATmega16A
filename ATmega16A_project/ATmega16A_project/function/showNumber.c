@@ -15,27 +15,27 @@ void showNumber(uint8_t number, uint8_t orderLED, uint8_t dot)
 	// bit dot (first)
 	showDot(dot);	
 	
-	//counter loop (seconed)
+	//counter loop (second)
 	uint8_t c; 
 	for (c=0; c<7;c++)
 	{
 		if (~number & 0b1)
 		{
+			//SH_CP LOW
 			PORTB=0b00000110;
-			_delay_ms(TIMELIMIT);
+			//SH_CP HIGH
 			PORTB=0b00000111;
-			_delay_ms(TIMELIMIT);
 		}
 		else
 		{
+			//DIO LOW
 			PORTB=0b00000101;
-			_delay_ms(TIMELIMIT);
+			//SH_CP LOW
 			PORTB=0b000100;
-			_delay_ms(TIMELIMIT);
+			//SH_CP HIGH
 			PORTB=0b00000101;
-			_delay_ms(TIMELIMIT);
+			//DIO HIGH
 			PORTB=0b00000111;
-			_delay_ms(TIMELIMIT);
 		}
 		number = number >> 1;
 	}
@@ -45,50 +45,48 @@ void showNumber(uint8_t number, uint8_t orderLED, uint8_t dot)
 	{
 		if(1==(orderLED & 0b1))
 		{
+			//SH_CP LOW
 			PORTB=0b00000110;
-			_delay_ms(TIMELIMIT);
+			//SH_CP HIGH
 			PORTB=0b00000111;
-			_delay_ms(TIMELIMIT);
 		}
 		else
 		{
+			//DIO LOW
 			PORTB=0b00000101;
-			_delay_ms(TIMELIMIT);
+			//SH_CP LOW
 			PORTB=0b000100;
-			_delay_ms(TIMELIMIT);
+			//SH_CP HIGH
 			PORTB=0b00000101;
-			_delay_ms(TIMELIMIT);
+			//DIO HIGH
 			PORTB=0b00000111;
-			_delay_ms(TIMELIMIT);
 		}
 		orderLED = orderLED >> 1;
 	}
 	
-	//	export data
+	//	export data - ST_CP
 	PORTB = 0b00000011;
-	_delay_ms(TIMELIMIT);
 	PORTB = 0b00000111;
-	_delay_ms(TIMELIMIT);
 }
 
 void showDot(uint8_t dot)
 {
 	if(dot ==1) 		
 	{
+		//DIO LOW
 		PORTB=0b00000101;
-		_delay_ms(TIMELIMIT);
+		//SH_CP LOW
 		PORTB=0b000100;
-		_delay_ms(TIMELIMIT);
+		//SH_CP HIGH
 		PORTB=0b00000101;
-		_delay_ms(TIMELIMIT);
+		//DIO HIGH
 		PORTB=0b00000111;
-		_delay_ms(TIMELIMIT);
 	}
 	else
 	{
+		//SH_CP LOW
 		PORTB=0b00000110;
-		_delay_ms(TIMELIMIT);
+		//SH_CP HIGH
 		PORTB=0b00000111;
-		_delay_ms(TIMELIMIT);
 	}
 }

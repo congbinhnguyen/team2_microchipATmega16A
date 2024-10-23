@@ -11,7 +11,8 @@
 #include <util/delay.h>
 
 // declare variable data
-	uint32_t data;
+uint32_t data = 3000000000; // inout data
+
 
 int main(void)
 {
@@ -20,9 +21,6 @@ int main(void)
 	
 	while (1) 
     {
-		// input data
-		data = 165;
-		
 		// display data
 		processNumber (data);
     }
