@@ -45,5 +45,4 @@ void processNumber(uint32_t data)
 			}
 		}
 	}
-
 }
