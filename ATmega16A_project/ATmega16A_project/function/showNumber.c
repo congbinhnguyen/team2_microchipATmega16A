@@ -2,91 +2,72 @@
  * showNumber.c
  *
  * Created: 9/28/2024 11:43:08 PM
- *  Author: binhc
- */ 
+ *  Author: binhc + thai
+ */
 
 #include "..\header1.h"
 
+#define NUM_SEGMENT 7 // Number of segments
+#define NUM_DOT 1 // Number of dot
 
 void showDot(uint8_t dot);
+void set_one(void);
+void set_zero(void);
+void display(void);
 
 void showNumber(uint8_t number, uint8_t orderLED, uint8_t dot)
 {
-	// bit dot (first)
-	showDot(dot);	
-	
-	//counter loop (second)
-	uint8_t c; 
-	for (c=0; c<7;c++)
+	// Bit dot (first)
+	showDot(dot);
+
+	// Counter loop (second)
+	for (uint8_t c = 0; c < NUM_SEGMENT; c++)
 	{
-		if (~number & 0b1)
-		{
-			//SH_CP LOW
-			PORTB=0b00000110;
-			//SH_CP HIGH
-			PORTB=0b00000111;
-		}
-		else
-		{
-			//DIO LOW
-			PORTB=0b00000101;
-			//SH_CP LOW
-			PORTB=0b000100;
-			//SH_CP HIGH
-			PORTB=0b00000101;
-			//DIO HIGH
-			PORTB=0b00000111;
-		}
+		// If the rightmost bit is 0
+		(~number & 0b1) ? set_zero() : set_one();
 		number = number >> 1;
 	}
-	
-	// loop orderLED (third)
-	for (c=0; c<=7;c++)
+
+	// Loop orderLED (third)
+	for (uint8_t c = 0; c < NUM_SEGMENT + NUM_DOT; c++)
 	{
-		if(1==(orderLED & 0b1))
-		{
-			//SH_CP LOW
-			PORTB=0b00000110;
-			//SH_CP HIGH
-			PORTB=0b00000111;
-		}
-		else
-		{
-			//DIO LOW
-			PORTB=0b00000101;
-			//SH_CP LOW
-			PORTB=0b000100;
-			//SH_CP HIGH
-			PORTB=0b00000101;
-			//DIO HIGH
-			PORTB=0b00000111;
-		}
+		(1 == (orderLED & 0b1)) ? set_zero() : set_one();
 		orderLED = orderLED >> 1;
 	}
-	
-	//	export data - ST_CP
-	PORTB = 0b00000011;
-	PORTB = 0b00000111;
+
+	display();
 }
 
 void showDot(uint8_t dot)
 {
-	if(dot ==1) 		
-	{
-		//DIO LOW
-		PORTB=0b00000101;
-		//SH_CP LOW
-		PORTB=0b000100;
-		//SH_CP HIGH
-		PORTB=0b00000101;
-		//DIO HIGH
-		PORTB=0b00000111;
-	}
-	else
-	{
-		//SH_CP LOW
-		PORTB=0b00000110;
-		//SH_CP HIGH
-		PORTB=0b00000111;
-	}
+	(dot == 1) ? set_one() : set_zero();
+}
+
+void set_one(void)
+{
+	// DATA | DIO -> LOW
+	PORTB &= ~(1 << DATA);
+	// CLOCK | SH_CP -> LOW
+	PORTB &= ~(1 << CLOCK);
+	// CLOCK | SH_CP -> HIGH
+	PORTB |= (1 << CLOCK);
+	// DATA | DIO -> HIGH
+	PORTB |= (1 << DATA);
+}
+
+void set_zero(void)
+{
+	// DATA | DIO -> HIGH
+	PORTB |= (1 << DATA);
+	// CLOCK | SH_CP -> LOW
+	PORTB &= ~(1 << CLOCK);
+	// CLOCK | SH_CP -> HIGH
+	PORTB |= (1 << CLOCK);
+}
+
+void display(void)
+{
+	// LATCH | STCP -> LOW -> HIGH
+	PORTB &= ~(1 << LATCH);
+	PORTB |= (1 << LATCH);
 }

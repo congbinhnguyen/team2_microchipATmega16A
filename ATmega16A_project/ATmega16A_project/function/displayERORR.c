@@ -3,12 +3,11 @@
  *
  * Created: 10/11/2024 9:32:10 AM
  *  Author: binhc
- */ 
-
+ */
 
 #include "..\header1.h"
 
-//ERROR 1: OUT LIMIT NUMBER
+// ERROR 1: OUT LIMIT NUMBER
 void displayError()
 {
 	showNumber(_E_, LED6, 0);
