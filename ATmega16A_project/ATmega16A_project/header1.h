@@ -8,7 +8,7 @@
 #ifndef HEADER1_H_
 #define HEADER1_H_
 
-#define F_CPU			8000000UL  // 8 MHz clock frequency
+#define F_CPU			1000000UL  // 8 MHz clock frequency
 #define TIMELIMIT		0.025
 #include <avr/io.h>
 #include <stdint.h>
