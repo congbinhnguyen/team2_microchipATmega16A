@@ -13,14 +13,13 @@
 // declare variable data
 uint32_t data = 3000000000; // inout data
 
-
 int main(void)
 {
 	// setting DDRB register
 	DDRB = 0b00000111;
-	
-	while (1) 
-    {
+
+	while (1)
+	{
 		// display data
 		processNumber(data);
 	}

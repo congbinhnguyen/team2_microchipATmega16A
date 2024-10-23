@@ -43,7 +43,6 @@
 #define		LED1		0b10000000
 
 //declare functions
-
 void number2bin(uint8_t * number, uint8_t * orderLED);
 void processNumber (uint32_t data) ;
 void showNumber(uint8_t number, uint8_t orderLED, uint8_t dot);
