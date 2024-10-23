@@ -2,7 +2,7 @@
  * showNumber.c
  *
  * Created: 9/28/2024 11:43:08 PM
- *  Author: binhc
+ *  Author: binhc + thai
  */
 
 #include "..\header1.h"
