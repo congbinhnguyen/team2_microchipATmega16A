@@ -9,24 +9,37 @@
 #include <avr/io.h>
 #include <stdint.h>
 #include <util/delay.h>
-
-#define CLOCK PB0 // SH-CP | SCLK (Shift Clock)
-#define DATA PB1  // DS | DIO
-#define LATCH PB2 // ST-CP (Storage Clock) | RCLK (Register Clock)
+#include <avr/interrupt.h>
 
 void setup(void);
+void demo(void);
+
+uint32_t counter = 0;
+volatile uint8_t object_detected = 0;
+
+ISR(INT0_vect)
+{
+	if (!object_detected)
+	{
+		counter++;
+		object_detected = 1;	
+	}
+}
 
 int main(void)
 {
 	setup();
-
-	// declare variable data
-	uint32_t data = 34567; // inout data
+	demo();
 
 	while (1)
 	{
-		// display data
-		processNumber(data);
+		// Check if the object is still present
+		if (PIND & (1 << PROX))  // If sensor no longer detects the object (high signal)
+		{
+			object_detected = 0;
+		}
+
+		processNumber(counter);
 	}
 
 	return 0;
@@ -34,7 +47,26 @@ int main(void)
 
 void setup(void)
 {
+	// Input and Output
 	DDRB |= (1 << CLOCK);
 	DDRB |= (1 << DATA);
 	DDRB |= (1 << LATCH);
+	DDRD &= ~(1 << PROX);
+
+	// Enable INT0 interrupt 
+	GICR |= (1 << INT0);
+	// Falling edge trigger of INT0
+	MCUCR |= (1 << ISC01);
+	MCUCR &= ~(1 << ISC00);
+
+	// Enable global interrupt
+	sei();
+}
+
+void demo(void)
+{
+	for (uint32_t i = 0; i <= 2000000; i+=500)
+	{
+		processNumber(i);
+	}
 }
