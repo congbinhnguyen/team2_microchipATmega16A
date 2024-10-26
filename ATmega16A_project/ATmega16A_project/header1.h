@@ -19,8 +19,9 @@
 #define CLOCK PB0 // SH-CP | SCLK (Shift Clock)
 #define DATA PB1  // DS | DIO
 #define LATCH PB2 // ST-CP (Storage Clock) | RCLK (Register Clock)
-#define PROX PD2 // INFRARED SENSOR | INT0
-#define BUZZER PD3 // BUZZER
+#define PROX_IN PD2 // INFRARED SENSOR | INT0
+#define PROX_OUT PD3 // INFRARED SENSOR | INT1
+#define BUZZER PD4 // BUZZER
 
 //Number define
 #define		_ZERO_		0b1111110
