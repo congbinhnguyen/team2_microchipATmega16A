@@ -5,17 +5,22 @@
  *  Author: binhc
  */ 
 
-
 #ifndef HEADER1_H_
 #define HEADER1_H_
 
-
-#define F_CPU			8000000UL  // 8 MHz clock frequency
+#define F_CPU			1000000UL  // 8 MHz clock frequency
 #define TIMELIMIT		0.025
 #include <avr/io.h>
 #include <stdint.h>
 #include <util/delay.h>
 #include <math.h>
+
+// Pin define
+#define CLOCK PB0 // SH-CP | SCLK (Shift Clock)
+#define DATA PB1  // DS | DIO
+#define LATCH PB2 // ST-CP (Storage Clock) | RCLK (Register Clock)
+#define PROX PD2 // INFRARED SENSOR | INT0
+#define BUZZER PD3 // BUZZER
 
 //Number define
 #define		_ZERO_		0b1111110
@@ -44,10 +49,7 @@
 #define		LED2		0b01000000
 #define		LED1		0b10000000
 
-
-
 //declare functions
-
 void number2bin(uint8_t * number, uint8_t * orderLED);
 void processNumber (uint32_t data) ;
 void showNumber(uint8_t number, uint8_t orderLED, uint8_t dot);
