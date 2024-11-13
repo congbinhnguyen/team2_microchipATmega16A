@@ -133,27 +133,18 @@
     </ToolchainSettings>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="function\number2bin.c">
+    <Compile Include="LEDdisplay.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="function\showNumber.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="function\displayERORR.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="function\processNumber.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="header1.h">
+    <Compile Include="LEDdisplay.c">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="main.c">
       <SubType>compile</SubType>
     </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="function" />
+    <Compile Include="PINsetup.h">
+      <SubType>compile</SubType>
+    </Compile>
   </ItemGroup>
   <Import Project="$(AVRSTUDIO_EXE_PATH)\\Vs\\Compiler.targets" />
 </Project>

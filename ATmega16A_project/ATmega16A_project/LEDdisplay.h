@@ -1,27 +1,22 @@
 /*
- * header1.h
+ * LEDdisplay.h
  *
  * Created: 9/28/2024 11:42:27 PM
  *  Author: binhc
  */ 
 
-#ifndef HEADER1_H_
-#define HEADER1_H_
+#ifndef __LED_DISPLAY_
+#define __LED_DISPLAY_
 
-#define F_CPU			1000000UL  // 8 MHz clock frequency
-#define TIMELIMIT		0.025
 #include <avr/io.h>
 #include <stdint.h>
-#include <util/delay.h>
-#include <math.h>
+#include "PINsetup.h"
 
-// Pin define
-#define CLOCK PB0 // SH-CP | SCLK (Shift Clock)
-#define DATA PB1  // DS | DIO
-#define LATCH PB2 // ST-CP (Storage Clock) | RCLK (Register Clock)
-#define PROX_IN PD2 // INFRARED SENSOR | INT0
-#define PROX_OUT PD3 // INFRARED SENSOR | INT1
-#define BUZZER PD4 // BUZZER
+#define MIN_VALUE 0
+#define MAX_VALUE 999999
+#define NUM_DIGITS 8 // Number of displayable digits
+#define NUM_SEGMENT 7 // Number of segments
+#define NUM_DOT 1 // Number of dot
 
 //Number define
 #define		_ZERO_		0b1111110
@@ -51,9 +46,13 @@
 #define		LED1		0b10000000
 
 //declare functions
-void number2bin(uint8_t * number, uint8_t * orderLED);
-void processNumber (uint32_t data) ;
-void showNumber(uint8_t number, uint8_t orderLED, uint8_t dot);
 void displayError();
+void number2bin(uint8_t *number, uint8_t *orderLED);
+void processNumber(uint32_t data);
+void showNumber(uint8_t number, uint8_t orderLED, uint8_t dot);
+void showDot(uint8_t dot);
+void set_one(void);
+void set_zero(void);
+void display(void);
 
 #endif /* HEADER1_H_ */

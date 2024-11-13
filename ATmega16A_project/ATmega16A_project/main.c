@@ -5,13 +5,15 @@
  * Author : binhc + thai
  */
 
-#include "header1.h"
+#include "LEDdisplay.h"
+#include "PINsetup.h"
 #include <avr/io.h>
 #include <stdint.h>
 #include <avr/interrupt.h>
 
+#define F_CPU			1000000UL  // 10 MHz clock frequency
+
 void setup(void);
-void demo(void);
 void enable_overflow_interrupt(void);
 void disable_overflow_interrupt(void);
 
@@ -72,6 +74,7 @@ ISR(TIMER1_OVF_vect)
         if (buzzed_count_in >= 2) 
 		{
 			PORTD &= ~(1 << BUZZER);
+			buzzed_in = 0;
 			disable_overflow_interrupt();
         }
     }
@@ -84,7 +87,9 @@ ISR(TIMER1_OVF_vect)
         if (buzzed_count_out >= 2) 
 		{
 			PORTD &= ~(1 << BUZZER);
+			buzzed_out = 0;
             disable_overflow_interrupt();
+			
         }
     }
 }
@@ -92,25 +97,27 @@ ISR(TIMER1_OVF_vect)
 int main(void)
 {
 	setup();
-	// demo();
-
 	while (1)
 	{
 		// Check if the object is still present
 		if (PIND & (1 << PROX_IN))  // If sensor no longer detects the object (high signal)
 		{
 			object_in_detected = 0;
-			buzzed_in = 0;
-			buzzed_count_in = 0;
+			if (!(PORTD & (1 << BUZZER)))	// if buzzer isn't doing
+			{
+				buzzed_count_in = 0;
+			}
 		}
-
+		
 		if (PIND & (1 << PROX_OUT))  // If sensor no longer detects the object (high signal)
 		{
 			object_out_detected = 0;
-			buzzed_out = 0;
-			buzzed_count_out = 0;
+			if (!(PORTD & (1 << BUZZER)))	// if buzzer isn't doing
+			{
+				buzzed_count_out = 0;
+			}
 		}
-
+		
 		processNumber(object_counter);
 	}
 
@@ -135,14 +142,13 @@ void setup(void)
 
 	// Enable INT1 interrupt 
 	GICR |= (1 << INT1);
-	// Falling edge trigger of INT0
+	// Falling edge trigger of INT1
 	MCUCR |= (1 << ISC11);
 	MCUCR &= ~(1 << ISC10);
 	
 	// Timer 1 overflow interrupt
 	TCCR1A = 0x00;
-	TCCR1B = (1 << CS11); // Pre-scaler of 8 -> 0.524s per overflow
-
+	TCCR1B |= (1 << CS10);	// Prescaler of 1 <=> 6.553 ms
 	// Enable global interrupt
 	sei();
 }
@@ -159,12 +165,4 @@ void disable_overflow_interrupt(void)
 {
 	// Enable Timer1 overflow interrupt
 	TIMSK &= ~(1 << TOIE1);
-}
-
-void demo(void)
-{
-	for (uint32_t i = 0; i <= 2000000; i+=3000)
-	{
-		processNumber(i);
-	}
 }
