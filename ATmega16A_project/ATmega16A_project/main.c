@@ -11,7 +11,7 @@
 #include <stdint.h>
 #include <avr/interrupt.h>
 
-#define F_CPU			1000000UL  // 10 MHz clock frequency
+#define F_CPU			1000000UL  // 1MHz clock frequency
 
 void setup(void);
 void enable_overflow_interrupt(void);
@@ -148,7 +148,8 @@ void setup(void)
 	
 	// Timer 1 overflow interrupt
 	TCCR1A = 0x00;
-	TCCR1B |= (1 << CS10);	// Prescaler of 1 <=> 6.553 ms
+	TCCR1B |= (1 << CS10);	// Pre-scaler of 1 <=> 65.536 ms/overflow
+	
 	// Enable global interrupt
 	sei();
 }
