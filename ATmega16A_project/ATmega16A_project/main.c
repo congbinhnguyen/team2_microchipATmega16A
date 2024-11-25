@@ -104,10 +104,10 @@ ISR(TIMER1_OVF_vect)
 
 ISR(USART_RXC_vect)
 {
-	uint8_t command = UDR; // ??c l?nh t? UART
+	uint8_t command = UDR;
 	if (command == 1 || command == 2 || command == 3)
 	{
-		received_command = command; // Ghi nh?n l?nh h?p l?
+		received_command = command;
 	}
 }
 
