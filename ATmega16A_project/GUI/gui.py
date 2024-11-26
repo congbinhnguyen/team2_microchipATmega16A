@@ -29,6 +29,14 @@ except serial.SerialException as e:
     label.config(text=f"Error: {e}")
     ser = None
 
+
+# Hiển thị trạng thái kết nối UART
+if ser:
+    connection_label = tk.Label(window, text="UART Connection: Successful", font=("Arial", 12), fg="green")
+else:
+    connection_label = tk.Label(window, text="UART Connection: Failed", font=("Arial", 12), fg="red")
+connection_label.pack(pady=10)
+
 # Hàm nhận dữ liệu từ UART
 def read_serial_data():
     if ser:

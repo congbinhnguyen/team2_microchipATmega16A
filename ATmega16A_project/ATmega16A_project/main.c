@@ -31,7 +31,7 @@ volatile uint8_t count_in_enabled = 1;
 volatile uint8_t count_out_enabled = 1;
 volatile uint8_t buzzer_enabled = 1;
 
-volatile uint8_t received_command = 0; // L?u l?nh nh?n ???c
+volatile uint8_t received_command = 0; // Store the received command
 uint32_t onlyChange;
 
 ISR(INT0_vect)
@@ -41,14 +41,11 @@ ISR(INT0_vect)
 		object_counter++;
 		object_in_detected = 1;
 
-		if (!buzzed_in)
+		if (!buzzed_in && buzzer_enabled)
 		{
 			buzzed_in = 1;
-			if (buzzer_enabled)
-			{
-				disable_overflow_interrupt();
-				enable_overflow_interrupt();
-			}
+			disable_overflow_interrupt();
+			enable_overflow_interrupt();
 		}
 	}
 }
@@ -60,14 +57,11 @@ ISR(INT1_vect)
 		object_counter--;
 		object_out_detected = 1;
 
-		if (!buzzed_out)
+		if (!buzzed_out && buzzer_enabled)
 		{
 			buzzed_out = 1;
-			if (buzzer_enabled)
-			{
-				disable_overflow_interrupt();
-				enable_overflow_interrupt();
-			}
+			disable_overflow_interrupt();
+			enable_overflow_interrupt();
 		}
 	}
 }
@@ -115,14 +109,14 @@ void UART_Init(unsigned int baud_rate)
 {
 	unsigned int ubrr = F_CPU / 16 / baud_rate - 1;
 
-	// C?u hình baud rate
+	// set up baue rate
 	UBRRH = (unsigned char)(ubrr >> 8);
 	UBRRL = (unsigned char)ubrr;
 
-	// B?t RX, TX và ng?t nh?n
+	// turn on UART and UART interrupt
 	UCSRB = (1 << RXEN) | (1 << TXEN) | (1 << RXCIE);
 	
-	// C?u hình 8-bit data, 1 stop bit
+	// config 8-bit data, 1 stop bit
 	UCSRC = (1 << URSEL) | (1 << UCSZ1) | (1 << UCSZ0);
 }
 
@@ -154,7 +148,7 @@ int main(void)
 
 	while (1)
 	{
-		// X? lý tr?ng thái nút b?m d?a trên l?nh nh?n
+		// handling switch state 
 		if (received_command != 0)
 		{
 			switch (received_command)
@@ -171,7 +165,7 @@ int main(void)
 			default:
 				break;
 			}
-			received_command = 0; // Xóa l?nh sau khi x? lý
+			received_command = 0;
 		}
 
 		// Check if the object is still present
@@ -206,7 +200,6 @@ int main(void)
 
 void setup(void)
 {
-	// C?u hình I/O nh? c?
 	DDRB |= (1 << CLOCK);
 	DDRB |= (1 << DATA);
 	DDRB |= (1 << LATCH);
@@ -214,15 +207,14 @@ void setup(void)
 	DDRD &= ~(1 << PROX_OUT);
 	DDRD |= (1 << BUZZER);
 
-	// B?t ng?t ngoài INT0 và INT1
+	// set up interrupt
 	GICR |= (1 << INT0) | (1 << INT1);
 	MCUCR |= (1 << ISC01) | (1 << ISC11); // Falling edge trigger
 
-	// C?u hình Timer1 nh? c?
+	// Timer1
 	TCCR1A = 0x00;
 	TCCR1B |= (1 << CS10);
 
-	// B?t ng?t toàn c?c
 	sei();
 }
 
@@ -236,6 +228,6 @@ void enable_overflow_interrupt(void)
 
 void disable_overflow_interrupt(void)
 {
-	// Enable Timer1 overflow interrupt
+	// Disable Timer1 overflow interrupt
 	TIMSK &= ~(1 << TOIE1);
 }
